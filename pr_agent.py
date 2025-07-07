@@ -44,7 +44,8 @@ class CopilotPRReviewer:
         """Send diff to CopilotLLM and parse JSON response."""
         instructions = (
             "You are an expert code reviewer. Review the following diff and output a JSON list "
-            "with objects describing issues. Each object must contain 'file', 'line', and 'comment'.\n" + diff
+            "with objects describing issues. Each object must contain 'file', 'line', 'comment', "
+            "'recommendation', and 'rationale'.\n" + diff
         )
         result = self.llm.run(instructions)
         try:
@@ -56,9 +57,16 @@ class CopilotPRReviewer:
         diff = self.bb.get_pr_diff(pr_id)
         issues = self.analyze_diff(diff)
         for issue in issues:
+            comment_text = issue.get("comment", "Issue found")
+            recommendation = issue.get("recommendation")
+            rationale = issue.get("rationale")
+            if recommendation:
+                comment_text += f"\n**Recommended change:** {recommendation}"
+            if rationale:
+                comment_text += f"\n**Rationale:** {rationale}"
             self.bb.post_pr_comment(
                 pr_id,
-                issue.get("comment", "Issue found"),
+                comment_text,
                 path=issue.get("file"),
                 line=issue.get("line"),
             )

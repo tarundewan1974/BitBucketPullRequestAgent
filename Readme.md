@@ -25,4 +25,4 @@ Run the reviewer:
 python pr_agent.py
 ```
 
-The agent will analyze the diff and add comments to the pull request, then post a summary asking the author to address the issues.
+The agent will analyze the diff and add comments to the pull request with a recommended change and the rationale behind it, then post a summary asking the author to address the issues.

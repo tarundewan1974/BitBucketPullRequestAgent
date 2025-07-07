@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "bitbucket": "^2.12.0",
+    "copilotkit": "^0.0.41",
+    "dotenv": "^17.0.1"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}

@@ -1,3 +1,7 @@
 openai-copilot
 requests
 langchain-community
+watchdog
+pdfminer.six
+python-docx
+spacy
